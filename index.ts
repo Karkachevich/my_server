@@ -1,9 +1,4 @@
-import http from "http";
-import { IncomingMessage, ServerResponse } from "http";
-
-if (process.env.NODE_ENV !== "production") {
-  console.log("Код запущен в режиме разработки");
-}
+import http, { IncomingMessage, ServerResponse } from "http";
 
 const { PORT = 3000, BASE_PATH } = process.env;
 
@@ -118,16 +113,15 @@ const todos: string[] = [];
 
 const server = http.createServer(
   (req: IncomingMessage, res: ServerResponse) => {
-    if (req.url === "/submit" && req.method === "POST") {
+    
+    if (req.method === "POST") {
       let body = "";
-
       req.on("data", (chunk: Buffer) => {
         body += chunk.toString();
       });
 
       req.on("end", () => {
         todos.push(body.split("=")[1]);
-        console.log(todos);
         res.writeHead(200, {
           "Content-Type": "text/html",
         });
@@ -136,7 +130,7 @@ const server = http.createServer(
       });
     }
 
-    if (req.url === "/" && req.method === "GET") {
+    if (req.method === "GET") {
       res.writeHead(200, {
         "Content-Type": "text/html",
       });
