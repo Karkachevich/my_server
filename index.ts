@@ -1,1 +1,8 @@
-console.log('In Node && TypeScript We Trust');
+import http from "http";
+
+const server = http.createServer(() => {
+    console.log('пришёл запрос!')
+});
+
+server.listen(3000);
+
