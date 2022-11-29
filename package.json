@@ -1,0 +1,24 @@
+{
+  "name": "my_server",
+  "version": "1.0.0",
+  "description": "мой первый сервер",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karkachevich/my_server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Karkachevich/my_server/issues"
+  },
+  "homepage": "https://github.com/Karkachevich/my_server#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "typescript": "^4.9.3"
+  }
+}
