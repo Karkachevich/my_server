@@ -1,6 +1,12 @@
 import http from "http";
 import { IncomingMessage, ServerResponse } from "http";
 
+if (process.env.NODE_ENV !== "production") {
+  console.log("Код запущен в режиме разработки");
+}
+
+const { PORT = 3000 } = process.env;
+
 const server = http.createServer(
   (req: IncomingMessage, res: ServerResponse) => {
     res.writeHead(200, {
@@ -10,4 +16,4 @@ const server = http.createServer(
   }
 );
 
-server.listen(3000);
+server.listen(PORT);
