@@ -1,77 +1,100 @@
 import http, { IncomingMessage, ServerResponse } from "http";
 
-const { PORT = 3000, BASE_PATH } = process.env;
+const { PORT = 3000 } = process.env;
 
-const mainPageMarkup = `
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Список дел</title>
-    <style>
-      html, body {
-        font-family: Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        margin: 0;
-      }
+const generateMainView = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Плейлист для работы</title>
+  <style>
+    html, body {
+      font-family: Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background-color: #566270;
+    }
 
-      input, button {
-        border: none;
-      }
+    .container {
+      max-width: 468px;
+      margin: auto;
+      color: white;
+    }
 
-      .container {
-        width: 468px;
-        margin: 0 auto;
-        padding-top: 100px;
-      }
+    .cover {
+      display: flex;
+      margin: 40px 0;
+    }
 
-      h1 {
-        font-weight: bold;
-      }
+    .cover__image {
+      width: 150px;
+      height: 150px;
+      background-image: url(https://pictures.s3.yandex.net/frontend-developer/dom_bom/cover.jpg);
+      background-size: cover;
+      background-position: center;
+      border-radius: 5px;
+      -webkit-box-shadow: 0px 0px 80px -22px rgba(165, 147, 224, 1);
+      -moz-box-shadow: 0px 0px 80px -22px rgba(165, 147, 224, 1);
+      box-shadow: 0px 0px 80px -22px rgba(165, 147, 224, 1);
+    }
 
-      .input {
-        display: flex;
-        justify-content: space-between;
-      }
+    .cover__info {
+      margin-left: 30px;
+      width: calc(468px - 150px - 30px);
+    }
 
-      .input__text {
-        font-size: 0.8em;
-        width: 310px;
-        height: 50px;
-        border-bottom: 1px solid #f1f1f1;
-        padding: 0 10px;
-        box-sizing: border-box;
-      }
+    .cover__title {
+      margin-bottom: 0;
+    }
 
-      .input__elem_text::placeholder {
-        color: #d3d3d3;
-      }
+    .cover__count {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
 
-      .input__btn {
-        font-size: 0.8em;
-        width: 150px;
-        height: 50px;
-        background-color: #ffdb4d;
-        border-radius: 2px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <form class="container" action="${BASE_PATH}/submit" method="POST" enctype="text/plain">
-      <h1>Список дел</h1>
-      <div class="input">
-        <input type="text" placeholder="Дело" class="input__text" name="item">
-        <button class="input__btn input__btn_add">
-          Добавить
-        </button>
+    .song {
+      align-items: center;
+      display: flex;
+      position: relative;
+      height: 50px;
+      margin-top: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      font-size: 0.8em;
+      padding: 0 10px;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .song:hover {
+      transform: scale(1.02);
+    }
+
+    .song__title {
+      font-weight: bold;
+    }
+
+    .song__artist {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="cover">
+      <div class="cover__image"></div>
+      <div class="cover__info">
+        <p class="cover__count">${0} треков</p>
+        <h1 class="cover__title">Плейлист для работы</h1>
       </div>
-    </form>
-  </body>
-  </html>
+    </div>
+    <div class="songs-container">
+      ${''}
+    </div>
+  </main>
+</body>
+</html>
+
 `;
 
 const submitSuccessMarkup = `
@@ -104,7 +127,7 @@ const submitSuccessMarkup = `
   <body>
     <div class="container">
       <h1>Форма успешно отправлена</h1>
-      <a href="${BASE_PATH}">Вернуться назад</a>
+      <a href="${''}">Вернуться назад</a>
     </div>
   </body>
   </html>
@@ -135,7 +158,7 @@ const server = http.createServer(
         "Content-Type": "text/html",
       });
 
-      res.end(mainPageMarkup);
+      res.end(generateMainView);
     }
   }
 );
