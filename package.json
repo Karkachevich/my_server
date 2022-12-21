@@ -20,10 +20,14 @@
   },
   "homepage": "https://github.com/Karkachevich/my_server#readme",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/node": "^18.11.9",
+    "@types/validator": "^13.7.10",
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "mongoose": "^6.8.1"
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^6.8.1",
+    "validator": "^13.7.0"
   }
 }
