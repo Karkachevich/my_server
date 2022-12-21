@@ -3,6 +3,7 @@ import {
   } from 'mongoose';
   import validator from 'validator';
   import bcrypt from 'bcryptjs';
+  import { regexUrl } from '../constants/regex';
 
   interface IUser {
     name: string;
@@ -35,7 +36,7 @@ import {
       default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
       validate: {
         validator(value: string) {
-         // return regexUrl.test(value);
+          return regexUrl.test(value);
         },
         message: 'Невалидный URL',
       },
