@@ -22,5 +22,8 @@
   "devDependencies": {
     "@types/node": "^18.11.9",
     "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "mongoose": "^6.8.1"
   }
 }
