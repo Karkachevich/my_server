@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import http, { IncomingMessage, ServerResponse } from 'http';
-import { generateMainView } from './views';
+import { generateMainView } from '../views';
 
 const { PORT = 3000 } = process.env;
 
