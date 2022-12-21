@@ -43,12 +43,12 @@ import {
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'Нужен пароль'],
       select: false,
     },
     email: {
       type: String,
-      required: true,
+      required: [true, 'Нужен email'],
       unique: true,
       validate: {
         validator: (value: string) => validator.isEmail(value),
