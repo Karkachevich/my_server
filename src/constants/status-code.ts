@@ -1,0 +1,6 @@
+export const INTERNAL_SERVER_ERROR = 500;
+export const BAD_REQUEST_STATUS_CODE = 400;
+export const UNAUTHORIZED_STATUS_CODE = 401;
+export const FORBIDDEN_STATUS_CODE = 403;
+export const NOT_FOUND_STATUS_CODE = 404;
+export const CONFLICT_STATUS_CODE = 409;
