@@ -4,16 +4,16 @@ import NotFoundError from '../errors/not-found-error';
 import User from '../models/user';
 
 export const getUsers = (req: Request, res: Response, next: NextFunction) => User.find({})
-  .then((users) => res.send({ data: users }))
+  .then((users: any) => res.send({ data: users }))
   .catch(next);
 
   export const getUserById = (req: Request, res: Response, next: NextFunction) => {
     User.findById(req.params.userId)
       .orFail(new NotFoundError('Нет пользователя'))
-      .then((user) => {
+      .then((user: any) => {
         res.send({ data: user });
       })
-      .catch((err) => {
+      .catch((err: { name: string; }) => {
         if (err.name === 'CastError') {
           next(new BadRequestError('Некорректные данные'));
         } else {
