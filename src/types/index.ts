@@ -8,4 +8,4 @@ export interface SessionRequest extends Request {
 
 export interface IUserIdRequest extends Request {
     _id: Schema.Types.ObjectId;
-  }
+}
