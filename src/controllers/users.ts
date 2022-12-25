@@ -59,3 +59,28 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
       }
     });
 };
+
+export const updateUserProfile = (req: SessionRequest, res: Response, next: NextFunction) => {
+  const { name, about } = req.body;
+  const { _id } = req.user as IUserIdRequest;
+
+  User.findByIdAndUpdate(
+    _id,
+    { name, about },
+    {
+      new: true,
+      runValidators: true,
+    },
+  )
+    .orFail(new NotFoundError('Нет пользователя'))
+    .then((user) => {
+      res.send({ data: user });
+    })
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError('Некорректные данные'));
+      } else {
+        next(err);
+      }
+    });
+};
