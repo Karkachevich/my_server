@@ -1,10 +1,12 @@
 import { Response, Request, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import BadRequestError from '../errors/bad-request-error';
 import ConflictError from '../errors/conflict-error';
 import NotFoundError from '../errors/not-found-error';
 import User from '../models/user';
 import { IUserIdRequest, SessionRequest } from '../types';
+import UnauthorizedError from '../errors/unauthorized-error';
 
 export const getUsers = (req: Request, res: Response, next: NextFunction) => User.find({})
   .then((users) => res.send({ data: users }))
@@ -106,5 +108,24 @@ export const updateUserAvatar = (req: SessionRequest, res: Response, next: NextF
       } else {
         next(err);
       }
+    });
+};
+
+export const login = (req: Request, res: Response, next: NextFunction) => {
+  const { email, password } = req.body;
+
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, 'strong-secret', { expiresIn: '7d' });
+      res.cookie('jwt', token, {
+        maxAge: 3600000 * 24 * 7,
+        httpOnly: true,
+        sameSite: true,
+      }).send({
+        token,
+      });
+    })
+    .catch(() => {
+      next(new UnauthorizedError('Необходима авторизация'));
     });
 };
