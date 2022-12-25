@@ -1,5 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
+import bcrypt from 'bcryptjs';
 import BadRequestError from '../errors/bad-request-error';
+import ConflictError from '../errors/conflict-error';
 import NotFoundError from '../errors/not-found-error';
 import User from '../models/user';
 import { IUserIdRequest, SessionRequest } from '../types';
@@ -33,6 +35,25 @@ export const getCurrentUser = (req: SessionRequest, res: Response, next: NextFun
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new BadRequestError('Некорректные данные'));
+      } else {
+        next(err);
+      }
+    });
+};
+
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
+
+  return bcrypt.hash(password, 10)
+    .then((hash: string) => User.create({
+      name, about, avatar, email, password: hash,
+    }))
+    .then((user) => res.send(user))
+    .catch((err) => {
+      if (err.code === 11000) {
+        next(new ConflictError('Ошибка авторизации'));
       } else {
         next(err);
       }
