@@ -60,3 +60,23 @@ export const likeCard = (req: SessionRequest, res: Response, next: NextFunction)
       }
     });
 };
+
+export const dislikeCard = (req: SessionRequest, res: Response, next: NextFunction) => {
+  const { _id } = req.user as IUserIdRequest;
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $pull: { likes: _id } },
+    { new: true, runValidators: true },
+  )
+    .orFail(new NotFoundError('Нет карточки'))
+    .then((card) => {
+      res.send({ data: card });
+    })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new BadRequestError('Некорректные данные'));
+      } else {
+        next(err);
+      }
+    });
+};
