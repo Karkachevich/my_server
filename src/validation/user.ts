@@ -13,3 +13,13 @@ export const validateUpdateAvatar = celebrate({
     avatar: Joi.string().required().uri(),
   }),
 });
+
+export const validateCreateUser = celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    about: Joi.string().min(2).max(200),
+    avatar: Joi.string().uri(),
+    password: Joi.string().required(),
+    email: Joi.string().required().email(),
+  }).unknown(true),
+});
