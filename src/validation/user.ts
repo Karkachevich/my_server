@@ -7,3 +7,9 @@ export const validateUpdateProfile = celebrate({
     about: Joi.string().required().min(2).max(200),
   }),
 });
+
+export const validateUpdateAvatar = celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    avatar: Joi.string().required().uri(),
+  }),
+});
