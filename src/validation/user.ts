@@ -23,3 +23,14 @@ export const validateCreateUser = celebrate({
     email: Joi.string().required().email(),
   }).unknown(true),
 });
+
+export const validateUserdId = celebrate({
+  [Segments.PARAMS]: Joi.object().keys({
+    userId: Joi.string().required().custom((value, helpers) => {
+      if (isObjectIdOrHexString(value)) {
+        return value;
+      }
+      return helpers.error('Некорректные данные');
+    }),
+  }),
+});
