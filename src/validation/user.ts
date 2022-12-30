@@ -34,3 +34,10 @@ export const validateUserdId = celebrate({
     }),
   }),
 });
+
+export const validateLogin = celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required(),
+  }),
+});
