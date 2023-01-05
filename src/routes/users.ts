@@ -7,3 +7,7 @@ import {
   updateUserProfile,
 } from '../controllers/users';
 import { validateUserdId, validateUpdateAvatar, validateUpdateProfile } from '../validation/user';
+
+const router = Router();
+
+router.get('/', getUsers);
