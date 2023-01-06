@@ -11,3 +11,4 @@ import { validateUserdId, validateUpdateAvatar, validateUpdateProfile } from '..
 const router = Router();
 
 router.get('/', getUsers);
+router.get('/me', getCurrentUser);
