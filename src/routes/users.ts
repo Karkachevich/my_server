@@ -12,3 +12,4 @@ const router = Router();
 
 router.get('/', getUsers);
 router.get('/me', getCurrentUser);
+router.get('/:userId', validateUserdId, getUserById);
