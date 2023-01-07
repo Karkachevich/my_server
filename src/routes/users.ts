@@ -14,3 +14,4 @@ router.get('/', getUsers);
 router.get('/me', getCurrentUser);
 router.get('/:userId', validateUserdId, getUserById);
 router.patch('/me', validateUpdateProfile, updateUserProfile);
+router.patch('/me/avatar', validateUpdateAvatar, updateUserAvatar);
