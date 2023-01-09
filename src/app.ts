@@ -1,1 +1,1 @@
-import { generateMainView } from '../views';
+import express from 'express';
