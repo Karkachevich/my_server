@@ -1,6 +1,14 @@
+import * as dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import { errors } from 'celebrate';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import usersRouter from './routes/users';
+import cardsRouter from './routes/cards';
+import { createUser, login } from './controllers/users';
+import errorHandler from './middlewares/error-handler';
+import { validateLogin, validateCreateUser } from './validation/user';
+import { requestLogger, errorLogger } from './middlewares/logger';
+import auth from './middlewares/auth';
