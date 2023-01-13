@@ -39,3 +39,6 @@ app.use(requestLogger);
 
 app.post('/signup', validateCreateUser, createUser);
 app.post('/signin', validateLogin, login);
+
+app.use(cookieParser());
+app.use(auth);
