@@ -45,3 +45,8 @@ app.use(auth);
 
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
+
+app.use(errorLogger);
+
+app.use(errors());
+app.use(errorHandler);
