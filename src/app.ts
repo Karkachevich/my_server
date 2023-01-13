@@ -12,3 +12,18 @@ import errorHandler from './middlewares/error-handler';
 import { validateLogin, validateCreateUser } from './validation/user';
 import { requestLogger, errorLogger } from './middlewares/logger';
 import auth from './middlewares/auth';
+
+dotenv.config();
+
+const { PORT = 3000 } = process.env;
+
+const app = express();
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use(limiter);
