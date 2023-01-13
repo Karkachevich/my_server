@@ -36,3 +36,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(requestLogger);
+
+app.post('/signup', validateCreateUser, createUser);
+app.post('/signin', validateLogin, login);
