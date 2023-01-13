@@ -42,3 +42,6 @@ app.post('/signin', validateLogin, login);
 
 app.use(cookieParser());
 app.use(auth);
+
+app.use('/users', usersRouter);
+app.use('/cards', cardsRouter);
